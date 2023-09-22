@@ -1,7 +1,7 @@
 import flask
 from flask.json import jsonify
 import uuid
-from pacman import Maze
+from traffic import Street
 
 games = {}
 
@@ -11,7 +11,7 @@ app = flask.Flask(__name__)
 def create():
     global games
     id = str(uuid.uuid4())
-    games[id] = Maze()
+    games[id] = Street()
     lista = []
     for ghost in games[id].schedule.agents:
         lista.append({"id": ghost.unique_id, "x": ghost.pos[0], "z": ghost.pos[1]})
