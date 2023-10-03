@@ -7,6 +7,7 @@ games = {}
 
 app = flask.Flask(__name__)
 
+
 @app.route("/games", methods=["POST"])
 def create():
     global games
