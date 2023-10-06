@@ -36,7 +36,7 @@ ZFAR=900.0
 #Variables para definir la posicion del observador
 #gluLookAt(EYE_X,EYE_Y,EYE_Z,CENTER_X,CENTER_Y,CENTER_Z,UP_X,UP_Y,UP_Z)
 EYE_X=1.0
-EYE_Y=800.0
+EYE_Y=500.0
 EYE_Z=1.0
 CENTER_X=0
 CENTER_Y=0
@@ -148,7 +148,7 @@ def Init():
     bench2.loadmodel()
     bench3.loadmodel()
     bench4.loadmodel()
-    casa1.loadmodel()
+    #casa1.loadmodel()
     #basuras en plano
         
         
@@ -201,8 +201,19 @@ def display():
     bench2.generate()
     bench3.generate()
     bench4.generate()
-    casa1.generate()
-    
+    #casa1.generate()
+    cmddown = False
+#...
+    keypress = pygame.key.get_pressed()#Move using WASD
+    if keypress[pygame.K_w]:
+        glTranslatef(0,0,2.0)
+    if keypress[pygame.K_s]:
+        glTranslatef(0,0,-2.0)
+    if keypress[pygame.K_d]:
+        glTranslatef(-2.0,0,0)
+    if keypress[pygame.K_a]:
+        glTranslatef(2.0,0,0)
+    #gluLookAt(EYE_X,EYE_Y,EYE_Z,CENTER_X,CENTER_Y,CENTER_Z,UP_X,UP_Y,UP_Z)
 
 Init()
 

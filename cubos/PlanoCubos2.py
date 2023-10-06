@@ -137,7 +137,7 @@ def Init():
     bench2 = Benches(DimBoard, 0, -110)
     bench3 = Benches(DimBoard, 110, 0)
     bench4 = Benches(DimBoard, 0, 110)
-    casa1 = Casas(DimBoard, random.randrange(0,200), random.randrange(0,200))
+    #casa1 = Casas(DimBoard, random.randrange(0,200), random.randrange(0,200))
 
     cubos.loadmodel()
     lamps1.loadmodel()
@@ -148,7 +148,7 @@ def Init():
     bench2.loadmodel()
     bench3.loadmodel()
     bench4.loadmodel()
-    casa1.loadmodel()
+    #casa1.loadmodel()
     #basuras en plano
         
         
@@ -201,7 +201,7 @@ def display():
     bench2.generate()
     bench3.generate()
     bench4.generate()
-    casa1.generate()
+    #casa1.generate()
     
 
 Init()
