@@ -62,7 +62,7 @@ class Lamps:
         #global obj
         glPushMatrix()
         glTranslatef(self.Position[0], self.Position[1], self.Position[2])
-        glScaled(.5,.5,.5)
+        glScaled(1,1,1)
         glRotate(90,0,0,1)
         glRotate(90,0,1,0)
         #self.rotar()
@@ -71,9 +71,9 @@ class Lamps:
 
 class Benches:
 
-    def __init__(self, dim, x , y):
+    def __init__(self, dim, x , y, angle):
         
-        self.angulo = 0
+        self.angulo = angle
         self.objetivo_direction = (0, 0, 1)  
         
         self.DimBoard = dim
@@ -94,6 +94,7 @@ class Benches:
         glScaled(5,5,5)
         glRotate(90,0,0,1)
         glRotate(90,0,1,0)
+        glRotate(self.angulo,0,0,1)
         #self.rotar()
         self.obj.render()
         glPopMatrix()
