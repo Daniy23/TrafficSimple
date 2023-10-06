@@ -14,8 +14,6 @@ import math
 class Cubo:
 
     def __init__(self, dim):
-        
-        self.angulo = 0
         self.objetivo_direction = (0, 0, 1)  
         
         self.DimBoard = dim
@@ -38,6 +36,42 @@ class Cubo:
         glRotate(90,0,1,0)
         #self.rotar()
         self.obj.render()
+        glPopMatrix()
+
+class Ship:
+
+    def __init__(self, dim, x, y, angulo):
+        self.angulo = angulo
+        self.Position = [x, 5, y]
+        self.angulo = 0
+        self.objetivo_direction = (0, 0, 1)  
+        
+        self.DimBoard = dim
+
+        self.direction = [0,0,0]
+
+    def loadmodel(self):
+        self.obj = OBJ("imp_fly_tiefighter.obj", swapyz=True)
+        self.obj.generate()
+            
+    def generate(self):
+        #global obj
+        glPushMatrix()
+        glTranslatef(self.Position[0], self.Position[1], self.Position[2])
+        glScaled(7,7,7)
+        glRotate(90,0,0,1)
+        glRotate(90,0,1,0)
+        glRotate(50,0,0,1)
+        #self.rotar()
+        self.obj.render()
+        glPopMatrix()
+
+    def rotate(self, anguloNave):
+        self.angulo = self.angulo + anguloNave
+        glPushMatrix()
+        glRotatef(self.angulo,0,1,0)
+        glTranslatef(14.5,0.0,0.0)
+        self.generate()
         glPopMatrix()
 
 class Lamps:
@@ -67,7 +101,21 @@ class Lamps:
         glRotate(90,0,1,0)
         #self.rotar()
         self.obj.render()
+
+        #glLightfv(GL_LIGHT0, GL_POSITION,  (self.Position[0], self.Position[1]+150, self.Position[2], 1))
+        #glLightfv(GL_LIGHT0, GL_AMBIENT, (1, 0.2, 0.2, 1.0))
+        #glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, (0,-1.0,0))
+        #glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, 20)
+        #glLightfv(GL_LIGHT0, GL_SPOT_EXPONENT, 0)
+        #glEnable(GL_LIGHT0)
+        #glEnable(GL_LIGHTING)
+        #glEnable(GL_COLOR_MATERIAL)
+        #glEnable(GL_DEPTH_TEST)
+        #glShadeModel(GL_SMOOTH) 
+
         glPopMatrix()
+
+
 
 class Benches:
 

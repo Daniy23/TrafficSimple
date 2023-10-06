@@ -15,7 +15,7 @@ import math
 import sys
 sys.path.append('..')
 
-from city import Cubo, Lamps, Benches, Casas
+from city import Cubo, Lamps, Benches, Casas, Ship
 
 done = False
 
@@ -54,6 +54,7 @@ Z_MAX=900
 #Dimension del plano
 DimBoard = 370
 DimBoard2 = 100
+
 
 
 pygame.init()
@@ -96,9 +97,8 @@ def Texturas(filepath):
     glGenerateMipmap(GL_TEXTURE_2D)
     
 def Init():
-    global cubos, lamps1, lamps2, lamps3, lamps4, bench1, bench2, bench3, bench4, casa1
+    global cubos, lamps1, lamps2, lamps3, lamps4, bench1, bench2, bench3, bench4, casa1, ship1, ship2
     #plano  #variables
-
     
     screen = pygame.display.set_mode(
         (screen_width, screen_height), DOUBLEBUF | OPENGL)
@@ -116,13 +116,14 @@ def Init():
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 
     glLightfv(GL_LIGHT0, GL_POSITION,  (-40, 200, 100, 0.0))
-    glLightfv(GL_LIGHT0, GL_AMBIENT, (0.4, 0.4, 0.4, 1.0))
+    glLightfv(GL_LIGHT0, GL_AMBIENT, (0.8, 0.8, 0.8, 1.0))
     glLightfv(GL_LIGHT0, GL_DIFFUSE, (0.5, 0.5, 0.5, 1.0))
     glEnable(GL_LIGHT0)
     glEnable(GL_LIGHTING)
     glEnable(GL_COLOR_MATERIAL)
     glEnable(GL_DEPTH_TEST)
     glShadeModel(GL_SMOOTH) 
+
 
     Texturas(piso)
     Texturas(celda)
@@ -138,6 +139,8 @@ def Init():
     bench3 = Benches(DimBoard, 110, 0, 180)
     bench4 = Benches(DimBoard, 0, 110, 90)
     casa1 = Casas(DimBoard, random.randrange(0,200), random.randrange(0,200))
+    ship1 = Ship(DimBoard, 120, 120, 0)
+    ship2 = Ship(DimBoard, -120, -120, 0)
 
     cubos.loadmodel()
     lamps1.loadmodel()
@@ -148,6 +151,8 @@ def Init():
     bench2.loadmodel()
     bench3.loadmodel()
     bench4.loadmodel()
+    ship1.loadmodel()
+    ship2.loadmodel()
     #casa1.loadmodel()
     #basuras en plano
         
@@ -201,8 +206,13 @@ def display():
     bench2.generate()
     bench3.generate()
     bench4.generate()
+    #ship1.generate()
     #casa1.generate()
     cmddown = False
+
+    ship1.rotate(0.5)
+    ship2.rotate(0.5)
+    
 #...
     keypress = pygame.key.get_pressed()#Move using WASD
     if keypress[pygame.K_w]:
@@ -231,7 +241,6 @@ while not done:
             done = True
 
     display()
-
     pygame.display.flip()
     pygame.time.wait(10)
 
