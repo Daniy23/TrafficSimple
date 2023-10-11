@@ -6,17 +6,18 @@ from mesa.time import RandomActivation
 from mesa.visualization.ModularVisualization import ModularServer
 
 from SimpleContinuousModule import SimpleCanvas
+import math
 
 
 class Car(Agent):
     
-    #No importa la direcccion a la que empiecen, cuando se encuentra en un punto critico cambia
-    posc = [6,10]
-    posc1 = [6,5]
+    #No importa la direcccion a la que empiecen, cuando se encuentra en un punto critico cambia 
+    #-----------------------------------------------------------------
     def __init__(self, model: Model, pos, speed):
         super().__init__(model.next_id(), model)
         self.pos = pos
         self.speed = speed
+        self.diagonalPos = [0,0]
     
 
 
@@ -27,11 +28,18 @@ class Car(Agent):
         
         direccionDerecha = [0.5, 0] 
         direccionIzquierda = [-1, 0]
+        
 
 #ESTOS SON DECISIONES PARA CONTROLAR LA NUEVA DIRECCION DEL CARRO
         
         #RUTA B 
         randomB = random.choice([direccionAbajo, direccionDerecha])
+        if (x == 6) and (y == 10):
+            self.diagonalPos = 270 # 270 Grados hasta 6, 14
+            # self.diagonalPos = np.array(self.diagonalvector(270))
+        if (x == 6) and (y == 14):
+            self.diagonalPos = 315 # 315 Grados hasta 10, 18
+            # self.diagonalPos = np.array(self.diagonalvector(315))
         if (x == 7) and (y == 14):
             self.speed = np.array(direccionAbajo)
         elif (x == 7) and (y == 16):
@@ -44,8 +52,12 @@ class Car(Agent):
             self.speed = np.array(direccionAbajo)
         elif (x == 14) and (y == 18):
             self.speed = np.array(direccionArriba)
+            self.diagonalPos = 45 #45 Grados hasta 18,14 (1)
+            # self.diagonalPos = np.array(self.diagonalvector(45))
         elif (x == 10) and (y == 18):
             self.speed = np.array(randomB)
+            self.diagonalPos = 0 #0 Grados hasta 14, 18
+            # self.diagonalPos = np.array(self.diagonalvector(0))  
         #RUTA D
         randomD = random.choice([direccionArriba, direccionIzquierda])
         if (x == 17) and (y == 10):
@@ -60,10 +72,16 @@ class Car(Agent):
             self.speed = np.array(direccionArriba)
         elif (x == 14) and (y == 6):
             self.speed = np.array(randomD)
+            self.diagonalPos = 180 #180 Grados hasta 10, 6
+            # print("GRADOS",self.diagonalPos)
+            # self.diagonalPos = np.array(self.diagonalvector(180))
+            # print("VECTOR",self.diagonalPos)
         #Ruta A  
         randomA = random.choice([direccionAbajo, direccionIzquierda])  
         if (x == 10) and (y == 6):
             self.speed = np.array(direccionAbajo)
+            self.diagonalPos = 225 # 225 grados hasta 6,10
+            # self.diagonalPos = np.array(self.diagonalvector(225))
         elif (x == 10) and (y == 7):
             self.speed = np.array(direccionIzquierda)
         elif (x == 8) and (y == 7):
@@ -88,47 +106,51 @@ class Car(Agent):
             self.speed = np.array(direccionDerecha)
         elif (x == 18) and (y == 10):
             self.speed = np.array(direccionIzquierda)
+            self.diagonalPos = 135 #135 Grados grados hasta 14,6
+            # self.diagonalPos = np.array(self.diagonalvector(135))
         elif (x == 18) and (y == 14):
             self.speed = np.array(randomC)
+            self.diagonalPos = 90 #90 grados hasta 18,10 
+            # self.diagonalPos = np.array(self.diagonalvector(90))
             
-    #----------------------------------------------------------------------------    
-    #ESTA ES LA VERSION ANTERIOR EN LA QUE LA POSICION SE ACTUALIZABA
-    
+    #--------------------------------------------------------------------------
     #NUEVAS POSICIONES 
-    #     new_pos = self.pos + np.array([1,1]) * self.speed
-    #     if not self.agent_position(new_pos[0], new_pos[1]): 
-    #         self.model.space.move_agent(self, new_pos)  
-    
-            
-    # def agent_position(self, x, y):
-    #         agents = self.model.space.get_neighbors((x, y), radius =0, include_center = True)
-    #         return any(isinstance(agent, Car) for agent in agents)
+        new_pos = self.pos + np.array([1,1]) * self.speed
+       # print("New_pos", new_pos)
+    #--------------------------------------------------
+        if not self.agent_position(new_pos[0], new_pos[1]): 
+            self.model.space.move_agent(self, new_pos)
+           # if not self.agent_aceleracion(new_pos[0], new_pos[1]): 
+                #print(self.speed)
+    #...............................................................
+        # if self.agent_aceleracion(new_pos[0], new_pos[1]) == True:
+        #     print("desacelera porque hay coches")
+        # else:
+        #     print("acelera porque no hay coches")
 
-#-----------------------------------------------------------------------------------------
-#ESTA ES LA NUEVA VERSION QUE QUIERO IMPLEMENTAR, SIGUIENDO SUS SUGERENCIAS CON CAR_AHEAD        
-    # #Nueva Implementacion 
-        car_ahead = self.car_ahead()
-        new_speed = self.accelerate() if car_ahead == None else self.decelerate(car_ahead)
+    def agent_aceleracion(self, x, y):
+            agents = self.model.space.get_neighbors((x, y), include_center =False, radius=3)
+            agentbool =any(isinstance(agent, Car) for agent in agents)
+            # print("ACELERACION", agentbool)
+            return agentbool
+    def agent_position(self, x, y):
+            agents = self.model.space.get_neighbors((x, y), include_center =True, radius=0)
+            agentbool =any(isinstance(agent, Car) for agent in agents)
+            # print("ENFRENTE", agentbool)
+            return agentbool
+#---------FUNCION---------DIAGONAL-------------------------------
+    def diagonalvector(self, grados):
+        angulo_grados = grados
+        # Convertir el ángulo de grados a radianes
+        angulo_radianes = math.radians(angulo_grados)
 
-        self.speed = np.array(new_speed)
-        new_pos = self.pos +  self.speed
-        self.model.space.move_agent(self, new_pos)
-
-
-    def car_ahead(self):
-        for neighbor in self.model.space.get_neighbors(self.pos, 1):
-            if neighbor.pos[0] > self.pos[0]:
-                return neighbor
-        return None
-
-    def accelerate(self):
-        return self.speed[0] * 0.5, self.speed[1] * 0.5
-
-    def decelerate(self, car_ahead):
-        return car_ahead.speed[0] * -0.1, car_ahead.speed[1] * -0.1
-            
-
-
+        # Calcular las componentes del vector
+        x = math.cos(angulo_radianes)
+        y = math.sin(angulo_radianes)
+        vectordiagonal = [x, y]
+        return vectordiagonal
+    #EJEMPLO DE IMPLEMENTACION, DESCOMENTA LA LINEA 72-24
+                
 
 class Street(Model):
     def __init__(self):
@@ -142,6 +164,7 @@ class Street(Model):
         a = 10
         
         for px in np.random.choice(1, ncarros, replace=True):
+            #               Posicion Inicial    direccion inicial
             car = Car(self, np.array([a, px]), np.array([0.0, 1.0]))
             self.space.place_agent(car, car.pos)
             self.schedule.add(car)
@@ -151,18 +174,18 @@ class Street(Model):
             car = Car(self, np.array([px, b]), np.array([1.0, 0.0]))
             self.space.place_agent(car, car.pos)
             self.schedule.add(car)
-# # #Generación de carros lado C YAA ESTA 
-#         c = 9
-#         for px in np.random.choice(1, ncarros, replace=True):
-#             car = Car(self, np.array([14, px]), np.array([0.0, -1.0]))
-#             self.space.place_agent(car, car.pos)
-#             self.schedule.add(car)
-# #Generacion de carros lado D
-#         d = 10
-#         for px in np.random.choice(1, ncarros, replace=True):
-#             car = Car(self, np.array([px, d]), np.array([-1.0, 0.0]))
-#             self.space.place_agent(car, car.pos)
-#             self.schedule.add(car)
+# #Generación de carros lado C YAA ESTA 
+        c = 9
+        for px in np.random.choice(1, ncarros, replace=True):
+            car = Car(self, np.array([14, px]), np.array([0.0, -1.0]))
+            self.space.place_agent(car, car.pos)
+            self.schedule.add(car)
+#Generacion de carros lado D
+        d = 10
+        for px in np.random.choice(1, ncarros, replace=True):
+            car = Car(self, np.array([px, d]), np.array([-1.0, 0.0]))
+            self.space.place_agent(car, car.pos)
+            self.schedule.add(car)
 
     def step(self):
         self.schedule.step()
@@ -175,11 +198,11 @@ canvas = SimpleCanvas(car_draw, 500, 500)
 
 model_params = {}
 
-# server = ModularServer(Street, [canvas], "Traffic2", model_params)
-# server.port = 8522
-# server.launch()
-modelo = Street()
-modelo.step()
-modelo.step()
+server = ModularServer(Street, [canvas], "Traffic2", model_params)
+server.port = 8522
+server.launch()
+# modelo = Street()
+# modelo.step()
+# modelo.step()
 
 #try
