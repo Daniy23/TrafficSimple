@@ -18,16 +18,29 @@ class Car(Agent):
         self.pos = pos
         self.speed = speed
         self.diagonalPos = [0,0]
+        self.vel = 1
     
 
 
-    def step(self):   
+    def step(self):
         x, y = self.pos  
         direccionAbajo = [0,0.5] 
         direccionArriba = [ 0,-1]
         
         direccionDerecha = [0.5, 0] 
         direccionIzquierda = [-1, 0]
+        print("Hi", self.speed)
+        d,v = self.speed 
+        # print(self.vel)
+        # print ("dsds33", self.speed)
+        # print("fd", [d,v])
+        d= d * self.vel
+        v= v * self.vel
+        # print ("HI", d, v)
+        # print ("Ho", d*2, v*2)
+        e = [d,v]
+        print("He", e) 
+        # print(e)
         
 
 #ESTOS SON DECISIONES PARA CONTROLAR LA NUEVA DIRECCION DEL CARRO
@@ -60,6 +73,8 @@ class Car(Agent):
             # self.diagonalPos = np.array(self.diagonalvector(0))  
         #RUTA D
         randomD = random.choice([direccionArriba, direccionIzquierda])
+        # if math.isclose(x, 17) and math.isclose(y, 10):
+        #     self.speed = np.array(direccionArriba)
         if (x == 17) and (y == 10):
             self.speed = np.array(direccionArriba)
         elif (x == 17) and (y == 8):
@@ -123,13 +138,19 @@ class Car(Agent):
            # if not self.agent_aceleracion(new_pos[0], new_pos[1]): 
                 #print(self.speed)
     #...............................................................
-        # if self.agent_aceleracion(new_pos[0], new_pos[1]) == True:
-        #     print("desacelera porque hay coches")
-        # else:
-        #     print("acelera porque no hay coches")
+    
+        # self.speed = self.speed * self.vel
+        if self.agent_aceleracion(new_pos[0], new_pos[1]) == True:
+            print("desacelera porque hay coches")
+            self.vel = self.vel - 0.4
+            # print(self.speed)
+        else:
+            print("acelera porque no hay coches")
+            self.vel = self.vel + 0.4
+            # print(self.speed)
 
     def agent_aceleracion(self, x, y):
-            agents = self.model.space.get_neighbors((x, y), include_center =False, radius=3)
+            agents = self.model.space.get_neighbors((x, y), include_center =False, radius=4)
             agentbool =any(isinstance(agent, Car) for agent in agents)
             # print("ACELERACION", agentbool)
             return agentbool
@@ -159,7 +180,7 @@ class Street(Model):
         self.schedule = RandomActivation(self)
 
 #CANTIDAD DE CARROS
-        ncarros = 1
+        ncarros = 4
 #Generación de carros lado A YAAA ESTA 
         a = 10
         
@@ -168,30 +189,30 @@ class Street(Model):
             car = Car(self, np.array([a, px]), np.array([0.0, 1.0]))
             self.space.place_agent(car, car.pos)
             self.schedule.add(car)
-# # #Generación de carros lado B
-        b = 14
-        for px in np.random.choice(1, ncarros, replace=True):
-            car = Car(self, np.array([px, b]), np.array([1.0, 0.0]))
-            self.space.place_agent(car, car.pos)
-            self.schedule.add(car)
+# # # #Generación de carros lado B
+#         b = 14
+#         for px in np.random.choice(1, ncarros, replace=True):
+#             car = Car(self, np.array([px, b]), np.array([1.0, 0.0]))
+#             self.space.place_agent(car, car.pos)
+#             self.schedule.add(car)
 # #Generación de carros lado C YAA ESTA 
-        c = 9
+        c = 14
         for px in np.random.choice(1, ncarros, replace=True):
-            car = Car(self, np.array([14, px]), np.array([0.0, -1.0]))
+            car = Car(self, np.array([c, px]), np.array([0.0, -1.0]))
             self.space.place_agent(car, car.pos)
             self.schedule.add(car)
-#Generacion de carros lado D
-        d = 10
-        for px in np.random.choice(1, ncarros, replace=True):
-            car = Car(self, np.array([px, d]), np.array([-1.0, 0.0]))
-            self.space.place_agent(car, car.pos)
-            self.schedule.add(car)
+# #Generacion de carros lado D
+#         d = 10
+#         for px in np.random.choice(1, ncarros, replace=True):
+#             car = Car(self, np.array([px, d]), np.array([-1.0, 0.0]))
+#             self.space.place_agent(car, car.pos)
+#             self.schedule.add(car)
 
     def step(self):
         self.schedule.step()
 
 def car_draw(agent):
-    color = "Blue" if agent.unique_id == 1 else "Blue" if agent.unique_id == 2 else "green" if agent.unique_id == 3 else "green" if agent.unique_id == 4 else "Brown" if agent.unique_id == 5 else "brown" if agent.unique_id == 6 else "yellow" if agent.unique_id == 7 else "yellow"
+    color = "Blue" if agent.unique_id == 1 else "Green" if agent.unique_id == 2 else "green" if agent.unique_id == 3 else "green" if agent.unique_id == 4 else "Brown" if agent.unique_id == 5 else "brown" if agent.unique_id == 6 else "yellow" if agent.unique_id == 7 else "yellow"
     return {"Shape": "rect", "w": 0.034, "h": 0.02, "Filled": "true", "Color": color}
 
 canvas = SimpleCanvas(car_draw, 500, 500)
