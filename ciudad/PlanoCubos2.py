@@ -15,7 +15,7 @@ import math
 import sys
 sys.path.append('..')
 
-from city import Cubo, Lamps, Benches, Casas, Ship
+from city import Cubo, Lamps, Benches, Casas, Ship, Edificios, luz
 
 done = False
 
@@ -97,7 +97,7 @@ def Texturas(filepath):
     glGenerateMipmap(GL_TEXTURE_2D)
     
 def Init():
-    global cubos, lamps1, lamps2, lamps3, lamps4, bench1, bench2, bench3, bench4, casa1, ship1, ship2
+    global cubos, lamps1, lamps2, lamps3, lamps4, bench1, bench2, bench3, bench4, casa1, ship1, ship2, edificio1
     #plano  #variables
     
     screen = pygame.display.set_mode(
@@ -141,6 +141,7 @@ def Init():
     casa1 = Casas(DimBoard, random.randrange(0,200), random.randrange(0,200))
     ship1 = Ship(DimBoard, 120, 120, 0)
     ship2 = Ship(DimBoard, -120, -120, 0)
+    edificio1 = Edificios(DimBoard, -300, 450, 90)
 
     cubos.loadmodel()
     lamps1.loadmodel()
@@ -153,13 +154,16 @@ def Init():
     bench4.loadmodel()
     ship1.loadmodel()
     ship2.loadmodel()
+    edificio1.loadmodel()
     #casa1.loadmodel()
     #basuras en plano
         
-        
+       
 def PlanoTexturizado():
+    
     glColor3f(1.0,1.0,1.0)
     glEnable(GL_TEXTURE_2D)
+    #glEnable(GL_LIGHT1)
     #Front face
     glBindTexture(GL_TEXTURE_2D, textures[0])
     glBegin(GL_QUADS)
@@ -173,9 +177,16 @@ def PlanoTexturizado():
     glVertex3d(DimBoard, 0, -DimBoard)
     glEnd()
     glDisable(GL_TEXTURE_2D)
+    glDisable(GL_LIGHT0)
+    
     
 def Plano2Texturizado():
+
+    glColor3f(1.0,1.0,1.0)
+    glEnable(GL_TEXTURE_2D)
+    #glEnable(GL_LIGHT1)
     glColor3f(1.0, 1.0, 1.0)
+    glEnable(GL_LIGHT1)
     glEnable(GL_TEXTURE_2D)
     # Front face
     glBindTexture(GL_TEXTURE_2D, 0)
@@ -190,6 +201,8 @@ def Plano2Texturizado():
     glVertex3d(DimBoard2 / 2, 0, -DimBoard2 / 2)
     glEnd()
     glDisable(GL_TEXTURE_2D)
+    glDisable(GL_LIGHT0)
+   
 
 
 def display():
@@ -206,6 +219,7 @@ def display():
     bench2.generate()
     bench3.generate()
     bench4.generate()
+    edificio1.generate()
     #ship1.generate()
     #casa1.generate()
     cmddown = False
@@ -243,5 +257,12 @@ while not done:
     display()
     pygame.display.flip()
     pygame.time.wait(10)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_LIGHTING)
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, (5, 5, 0, 1.0))  # Intensidad alta
+    glLightfv(GL_LIGHT1, GL_AMBIENT, (0, 0, 0, 1.0))  # Intensidad alta
+
+
+
 
 pygame.quit()
