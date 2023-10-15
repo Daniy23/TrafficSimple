@@ -14,7 +14,6 @@ import math
 class Agua:
     def __init__(self):
         self.position = [0, 50, 0]
-        self.size = 2
         
         
         #self.direction = [
@@ -35,7 +34,7 @@ class Agua:
     def create(self):
         glPushMatrix()
         glTranslatef(*self.position)
-        glScalef(self.size, self.size, self.size)
+        glScalef(2, 2, 2)
         glColor3f(0.0, 0.5, 1.0) #Azul
 
     #Coordenadas de los vértices
@@ -213,8 +212,8 @@ def luz():
         #Intensidad
         #glLightfv(GL_LIGHT1, GL_DIFFUSE, (1, 1, 0, 1.0))
         
-        glLightfv(GL_LIGHT1, GL_DIFFUSE, (1.5, 1.5, 0, 1.0))
-        glLightfv(GL_LIGHT2, GL_DIFFUSE, (2.5, 2.5, 0, 1.0))
+        glLightfv(GL_LIGHT1, GL_DIFFUSE, (3.5, 3.5, 0, 1.0))
+        glLightfv(GL_LIGHT2, GL_DIFFUSE, (3.5, 3.5, 0, 1.0))
         glLightfv(GL_LIGHT3, GL_DIFFUSE, (2.5, 2.5, 0, 1.0)) 
         glLightfv(GL_LIGHT4, GL_DIFFUSE, (30, 30, 0, 1.0)) #Mucha intensidad para testear 
         glLightfv(GL_LIGHT5, GL_DIFFUSE, (2.5, 2.5, 0, 1.0)) 
@@ -243,7 +242,7 @@ def luz():
         
         
         #Luz ambiente, aumentar si esta muy oscuro
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, [0.2, 0.2, 0.2, 1])  # valores RGB para blanco, en el rango [0,1]
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, [0.3, 0.3, 0.3, 1])  #valores RGB para blanco, en el rango [0,1]
     
 
         glEnable(GL_LIGHTING)
@@ -336,13 +335,13 @@ class Edificios:
         self.direction = [0,0,0]
 
     def loadmodel(self):
-        self.obj = OBJ("Edificio.obj", swapyz=True)
+        self.obj = OBJ("archedbuilding.obj", swapyz=True)
         self.obj.generate()
             
     def generate(self):
         #global obj
         glPushMatrix()
-        glTranslatef(self.Position[0], self.Position[1], self.Position[2])
+        glTranslatef(self.Position[0] + 20, self.Position[1], self.Position[2] + 20)
         glScaled(5,5,5)
         glRotate(90,0,0,1)
         glRotate(90,0,1,0)
@@ -350,3 +349,173 @@ class Edificios:
         #self.rotar()
         self.obj.render()
         glPopMatrix()
+
+class Edificios2:
+
+    def __init__(self, dim, x , y, angle):
+        
+        self.angulo = angle
+        self.objetivo_direction = (0, 0, 1)  
+        
+        self.DimBoard = dim
+        
+        #Se inicializa una posición aleatoria en el tablero
+        self.Position = [x, 5, y]
+
+        self.direction = [0,0,0]
+
+    def loadmodel(self):
+        self.obj = OBJ("Accumula.obj", swapyz=True)
+        self.obj.generate()
+            
+    def generate(self):
+        #global obj
+        glPushMatrix()
+        glTranslatef(self.Position[0], self.Position[1] - 10, self.Position[2])
+        glScaled(2,2,2)
+        glRotate(90,0,0,1)
+        glRotate(90,0,1,0)
+        glRotate(self.angulo,0,0,1)
+        #self.rotar()
+        self.obj.render()
+        glPopMatrix()
+        
+class Edificios3:
+
+    def __init__(self, dim, x , y, angle):
+        
+        self.angulo = angle
+        self.objetivo_direction = (0, 0, 1)  
+        
+        self.DimBoard = dim
+        
+        #Se inicializa una posición aleatoria en el tablero
+        self.Position = [x, 5, y]
+
+        self.direction = [0,0,0]
+
+    def loadmodel(self):
+        self.obj = OBJ("Ecruteak.obj", swapyz=True)
+        self.obj.generate()
+            
+    def generate(self):
+        #global obj
+        glPushMatrix()
+        glTranslatef(self.Position[0], self.Position[1] - 8 , self.Position[2])
+        glScaled(2,2,2)
+        glRotate(90,0,0,1)
+        glRotate(90,0,1,0)
+        glRotate(self.angulo,0,0,1)
+        #self.rotar()
+        self.obj.render()
+        glPopMatrix()
+
+class Perrito:
+    
+    def __init__(self, dim, x , y, angle):
+        self.models = ["Dog1.obj","Dog2.obj","Dog3.obj"] #Array de modelos-sprites
+        self.angulo = angle
+        self.objetivo_direction = (0, 0, 1)  
+        
+        self.DimBoard = dim
+        
+        #Cargar modelos
+        self.saved_models = {model_name: OBJ(model_name, swapyz=True) for model_name in self.models}
+        for model in self.saved_models.values():
+            model.generate()
+        self.obj = self.saved_models[random.choice(self.models)]
+        
+        #Se inicializa una posición aleatoria en el tablero
+        self.Position = [x, 5, y]
+
+        self.direction = [0,0,0]
+        
+        #Limites estblecidos
+        self.min_x = 200
+        self.max_x = 350  
+        self.min_y = 150
+        self.max_y = 250  
+        
+        self.contador_pasos = 0  # Contador de cuántos pasos se ha movido en la dirección actual
+        self.eje_direction = random.choice(['x', 'y']) #Direccion aleatoria ya sea x/y
+        self.pasos_en_eje = random.randint(150, 300) #rango de pasos antes de cambiar de eje
+        self.num_pasos = random.choice([10,20])  #La cantidad que se moverá en cada paso
+        
+        self.speed = 0.010
+        
+        
+
+
+
+
+    def loadmodel(self):
+        self.obj = self.saved_models[random.choice(self.models)]
+            
+    def generate(self):
+        #global obj
+        glPushMatrix()
+        glTranslatef(self.Position[0], self.Position[1], self.Position[2])
+        glScaled(2,2,2)
+        glRotate(90,0,0,1)
+        glRotate(90,0,1,0)
+        glRotate(self.angulo,0,0,1)
+        #self.rotar()
+        self.obj.render()
+        glPopMatrix()
+        
+    def move(self):
+        self.loadmodel()
+        dirx, diry = 0, 0
+
+        if self.eje_direction == 'x':
+            dirx = self.num_pasos * self.speed
+            if dirx > 0:
+                self.angulo = 0
+            else:
+                self.angulo = 180
+        else:
+            diry = self.num_pasos * self.speed
+            if diry > 0:
+                self.angulo = 90
+            else:
+                self.angulo = 270
+
+        pos_x = self.Position[0] + dirx #Actualizar posiciones
+        pos_y = self.Position[2] + diry
+
+        #no salga de los limites establecidos
+        while self.min_x > pos_x or pos_x > self.max_x or self.min_y > pos_y or pos_y > self.max_y:
+            if self.eje_direction == 'x':
+                self.eje_direction = 'y'
+            else:
+                self.eje_direction = 'x'
+            
+            self.speed = -self.speed
+            
+            #calcular el camino
+            dirx, diry = 0, 0
+            if self.eje_direction == 'x':
+                dirx = self.num_pasos * self.speed
+                diry = self.num_pasos * self.speed
+                
+            pos_x = self.Position[0] + dirx
+            pos_y = self.Position[2] + diry
+
+        # Actualizamos la posición
+        self.Position[0] = pos_x
+        self.Position[2] = pos_y
+        ################    
+        self.contador_pasos += 1  # Incrementamos el contador de pasos
+
+        #cambio de eje cuando el contador supera la cantidad establecida en pasos_en_eje
+        if self.contador_pasos >= self.pasos_en_eje:
+            if self.eje_direction == 'x':
+                self.eje_direction = 'y'
+            else: #valores iniciales
+                self.eje_direction = 'x'
+            #Restablece_pasos()
+            self.pasos_en_eje = random.randint(150, 300)  
+            self.num_pasos = random.choice([10,20])
+            self.contador_pasos = 0
+            
+            

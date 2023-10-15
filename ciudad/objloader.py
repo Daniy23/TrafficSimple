@@ -22,7 +22,6 @@ class OBJ:
         contents = {}
         mtl = None
         dirname = os.path.dirname(filename)
-
         for line in open(filename, "r"):
             if line.startswith('#'): continue
             values = line.split()
@@ -36,9 +35,16 @@ class OBJ:
                 mtl[values[0]] = values[1]
                 imagefile = os.path.join(dirname, mtl['map_Kd'])
                 mtl['texture_Kd'] = cls.loadTexture(imagefile)
+                continue
             else:
-                mtl[values[0]] = list(map(float, values[1:]))
+                try:
+                    mtl[values[0]] = list(map(float, values[1:]))
+                except ValueError:
+                    mtl[values[0]] = ' '.join(values[1:])
+
         return contents
+    
+
 
     def __init__(self, filename, swapyz=False):
         """Loads a Wavefront OBJ file. """
@@ -115,6 +121,9 @@ class OBJ:
             glEnd()
         glDisable(GL_TEXTURE_2D)
         glEndList()
+        
+        
+    
 
     def render(self):
         glCallList(self.gl_list)

@@ -1,0 +1,40 @@
+newmtl en_seki1
+Ka 0.972549 0.972549 0.972549
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka en_seki1.png
+map_Kd en_seki1.png
+map_d en_seki1.png
+newmtl en_sekia2
+Ka 0.972549 0.972549 0.972549
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka en_sekia2.png
+map_Kd en_sekia2.png
+map_d en_sekia2.png
+newmtl h_mado
+Ka 0.972549 0.972549 0.972549
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka h_mado.png
+map_Kd h_mado.png
+map_d h_mado.png
+newmtl lambert4
+Ka 0.972549 0.972549 0.972549
+Kd 0.7843137 0.7843137 0.7843137
+d 0.2903226
+Tr 0.2903226
+map_Ka lambert4.png
+map_Kd lambert4.png
+map_d lambert4.png
+newmtl lambert6
+Ka 0.972549 0.972549 0.972549
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka lambert6.png
+map_Kd lambert6.png
+map_d lambert6.png

@@ -15,7 +15,7 @@ import math
 import sys
 sys.path.append('..')
 
-from city import Cubo, Lamps, Benches, Casas, Ship, Edificios, luz
+from city import Cubo, Lamps, Benches, Casas, Ship, Edificios, Edificios2, Edificios3, Perrito, luz
 
 done = False
 
@@ -97,7 +97,7 @@ def Texturas(filepath):
     glGenerateMipmap(GL_TEXTURE_2D)
     
 def Init():
-    global cubos, lamps1, lamps2, lamps3, lamps4, bench1, bench2, bench3, bench4, casa1, ship1, ship2, edificio1
+    global perro, perro2, cubos, lamps1, lamps2, lamps3, lamps4, bench1, bench2, bench3, bench4, casa1, ship1, ship2, edificio1,edificio2, edificio3
     #plano  #variables
     
     screen = pygame.display.set_mode(
@@ -142,6 +142,12 @@ def Init():
     ship1 = Ship(DimBoard, 120, 120, 0)
     ship2 = Ship(DimBoard, -120, -120, 0)
     edificio1 = Edificios(DimBoard, -300, 450, 90)
+    edificio2 = Edificios2(DimBoard, -300, -200, 180)
+    edificio3 = Edificios3(DimBoard, 270, -220, 180)
+    #edificio4 = Edificios4(DimBoard, 7, 7, 180)
+    #    edificio4 = Edificios4(DimBoard, 270, 220, 180)
+    perro = Perrito(DimBoard, 250, 150, 0)
+    perro2 = Perrito(DimBoard, 300, 200, 0)
 
     cubos.loadmodel()
     lamps1.loadmodel()
@@ -155,6 +161,10 @@ def Init():
     ship1.loadmodel()
     ship2.loadmodel()
     edificio1.loadmodel()
+    edificio2.loadmodel()
+    edificio3.loadmodel()
+    perro.loadmodel()
+    perro2.loadmodel()
     #casa1.loadmodel()
     #basuras en plano
         
@@ -186,7 +196,7 @@ def Plano2Texturizado():
     glEnable(GL_TEXTURE_2D)
     #glEnable(GL_LIGHT1)
     glColor3f(1.0, 1.0, 1.0)
-    glEnable(GL_LIGHT1)
+    #glEnable(GL_LIGHT1)
     glEnable(GL_TEXTURE_2D)
     # Front face
     glBindTexture(GL_TEXTURE_2D, 0)
@@ -220,6 +230,16 @@ def display():
     bench3.generate()
     bench4.generate()
     edificio1.generate()
+    edificio2.generate()
+    edificio3.generate()
+    perro.generate()
+    perro2.generate()
+    
+    perro.move()
+    perro2.move()
+    
+
+
     #ship1.generate()
     #casa1.generate()
     cmddown = False
@@ -257,10 +277,13 @@ while not done:
     display()
     pygame.display.flip()
     pygame.time.wait(10)
-    glEnable(GL_DEPTH_TEST)
-    glEnable(GL_LIGHTING)
-    glLightfv(GL_LIGHT1, GL_DIFFUSE, (5, 5, 0, 1.0))  # Intensidad alta
-    glLightfv(GL_LIGHT1, GL_AMBIENT, (0, 0, 0, 1.0))  # Intensidad alta
+
+
+    #glEnable(GL_DEPTH_TEST)
+    #glEnable(GL_LIGHTING)
+    #glLightfv(GL_LIGHT1, GL_DIFFUSE, (5, 5, 0, 1.0))  # Intensidad alta
+    #glLightfv(GL_LIGHT1, GL_AMBIENT, (0, 0, 0, 1.0))  # Intensidad alta
+    
 
 
 
