@@ -71,7 +71,7 @@ pygame.init()
 
 carros = {}
 for agent in cars:
-    car = Ship(agent["x"], agent["z"])
+    car = Ship(DimBoard, agent["x"], agent["z"], 0)
     carros[agent["id"]] = car
 
 def Axis():
