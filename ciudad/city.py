@@ -155,6 +155,10 @@ class Ship:
         self.generate()
         glPopMatrix()
 
+    def update(self, new_x, new_z):
+        self.Position[0] = new_x
+        self.Position[2] = new_z
+
 class Lamps:
 
     def __init__(self, dim, x , y):

@@ -29,7 +29,7 @@ print(r)
 
 elementos = r.json()
 cars = elementos['cars']
-LOCATION = cars["location"]
+LOCATION = elementos["location"]
 
 screen_width = 500
 screen_height = 500
@@ -173,11 +173,11 @@ def Init():
     bench2.loadmodel()
     bench3.loadmodel()
     bench4.loadmodel()
-    ship1.loadmodel()
-    ship2.loadmodel()
-    edificio1.loadmodel()
-    edificio2.loadmodel()
-    edificio3.loadmodel()
+    #ship1.loadmodel()
+    #ship2.loadmodel()
+    #edificio1.loadmodel()
+    #edificio2.loadmodel()
+    #edificio3.loadmodel()
     perro.loadmodel()
     perro2.loadmodel()
     #casa1.loadmodel()
@@ -247,9 +247,9 @@ def display():
     bench2.generate()
     bench3.generate()
     bench4.generate()
-    edificio1.generate()
-    edificio2.generate()
-    edificio3.generate()
+    #edificio1.generate()
+    #edificio2.generate()
+    #edificio3.generate()
     perro.generate()
     perro2.generate()
     
