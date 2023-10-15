@@ -139,7 +139,7 @@ class Ship:
         #global obj
         glPushMatrix()
         glTranslatef(self.Position[0], self.Position[1], self.Position[2])
-        glScaled(7,7,7)
+        glScaled(4,4,4)
         glRotate(90,0,0,1)
         glRotate(90,0,1,0)
         glRotate(50,0,0,1)

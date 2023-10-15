@@ -175,9 +175,9 @@ def Init():
     bench4.loadmodel()
     #ship1.loadmodel()
     #ship2.loadmodel()
-    #edificio1.loadmodel()
-    #edificio2.loadmodel()
-    #edificio3.loadmodel()
+    edificio1.loadmodel()
+    edificio2.loadmodel()
+    edificio3.loadmodel()
     perro.loadmodel()
     perro2.loadmodel()
     #casa1.loadmodel()
@@ -247,9 +247,9 @@ def display():
     bench2.generate()
     bench3.generate()
     bench4.generate()
-    #edificio1.generate()
-    #edificio2.generate()
-    #edificio3.generate()
+    edificio1.generate()
+    edificio2.generate()
+    edificio3.generate()
     perro.generate()
     perro2.generate()
     
@@ -265,7 +265,7 @@ def display():
     cars = elementos["cars"]
 
     for agent in cars:
-        carros[agent["id"]].update(agent["x"] * 20 - 160, agent["z"] *20 - 160)
+        carros[agent["id"]].update(agent["x"] * 28 - 340, agent["z"] *28 - 340)
     #ship1.generate()
     #casa1.generate()
     cmddown = False
