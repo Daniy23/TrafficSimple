@@ -19,6 +19,17 @@ from city import Cubo, Lamps, Benches, Casas, Ship, Edificios, Edificios2, Edifi
 
 done = False
 
+import requests
+
+URL_BASE = "http://localhost:5000"
+r = requests.post(URL_BASE+ "/games", allow_redirects=False)
+print(r)
+#LOCATION = r.headers["location"]
+
+
+cars = r.json()
+LOCATION = cars["location"]
+
 screen_width = 500
 screen_height = 500
 
@@ -55,9 +66,12 @@ Z_MAX=900
 DimBoard = 370
 DimBoard2 = 100
 
-
-
 pygame.init()
+
+carros = {}
+for agent in cars:
+    car = Ship(agent["x"], agent["z"])
+    carros[agent["id"]] = car
 
 def Axis():
     glShadeModel(GL_FLAT)
@@ -139,8 +153,8 @@ def Init():
     bench3 = Benches(DimBoard, 110, 0, 180)
     bench4 = Benches(DimBoard, 0, 110, 90)
     casa1 = Casas(DimBoard, random.randrange(0,200), random.randrange(0,200))
-    ship1 = Ship(DimBoard, 120, 120, 0)
-    ship2 = Ship(DimBoard, -120, -120, 0)
+    #ship1 = Ship(DimBoard, 120, 120, 0)
+    #ship2 = Ship(DimBoard, -120, -120, 0)
     edificio1 = Edificios(DimBoard, -300, 450, 90)
     edificio2 = Edificios2(DimBoard, -300, -200, 180)
     edificio3 = Edificios3(DimBoard, 270, -220, 180)
@@ -167,6 +181,9 @@ def Init():
     perro2.loadmodel()
     #casa1.loadmodel()
     #basuras en plano
+
+    for ship in carros.values():
+        ship.loadmodel()
         
        
 def PlanoTexturizado():
@@ -238,14 +255,22 @@ def display():
     perro.move()
     perro2.move()
     
+    for ship in carros.values():
+        ship.generate()
 
 
+    response = requests.get(URL_BASE + LOCATION)
+    elementos = response.json()
+    cars = elementos
+
+    for agent in cars:
+        carros[agent["id"]].update(agent["x"] * 20 - 160, agent["z"] *20 - 160)
     #ship1.generate()
     #casa1.generate()
     cmddown = False
 
-    ship1.rotate(0.5)
-    ship2.rotate(0.5)
+    #ship1.rotate(0.5)
+    #ship2.rotate(0.5)
     
 #...
     keypress = pygame.key.get_pressed()#Move using WASD

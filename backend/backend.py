@@ -1,7 +1,7 @@
 import flask
 from flask.json import jsonify
 import uuid
-from traffic2 import Street
+from traffic2 import Street, Car
 
 games = {}
 
@@ -13,16 +13,16 @@ def create():
     global games
     id = str(uuid.uuid4())
     games[id] = Street()
-    lista = []
+    cars = []
     for ghost in games[id].schedule.agents:
-        lista.append({"id": ghost.unique_id, "x": int(ghost.pos[0]), "z": int(ghost.pos[1])})
+        cars.append({"id": ghost.unique_id, "x": int(ghost.pos[0]), "z": int(ghost.pos[1])})
 
     #response = flask.make_response()
     #response.headers['Location'] = f"/games/{id}"
     #response.status_code = 201
     #response.data = jsonify(lista)
     #return response
-    return jsonify(lista), 201, {'Location': f"/games/{id}"}
+    return jsonify(cars), 201, {'location': f"/games/{id}"}
 
 @app.route("/games/<id>", methods=["GET"])
 def queryState(id):
