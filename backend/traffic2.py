@@ -219,9 +219,9 @@ canvas = SimpleCanvas(car_draw, 500, 500)
 
 model_params = {}
 
-server = ModularServer(Street, [canvas], "Traffic2", model_params)
-server.port = 8522
-server.launch()
+#server = ModularServer(Street, [canvas], "Traffic2", model_params)
+#server.port = 8522
+#server.launch()
 # modelo = Street()
 # modelo.step()
 # modelo.step()
