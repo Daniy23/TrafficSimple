@@ -20,7 +20,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd stone2_com_256.PNG
+map_Kd stone2_com_256.png
 
 newmtl archedbuilding_l0.1
 Ns 0.000000
@@ -31,7 +31,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd inwindow1.PNG
+map_Kd inwindow1.png
 
 newmtl archedbuilding_l0.2
 Ns 0.000000
@@ -42,7 +42,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd Paveblank_64hv.PNG
+map_Kd Paveblank_64hv.png
 
 newmtl archedbuilding_l0.3
 Ns 0.000000
@@ -53,4 +53,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd door1_64.PNG
+map_Kd door1_64.png
