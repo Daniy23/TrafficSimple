@@ -32,6 +32,6 @@ def queryState(id):
     lista = []
     for ghost in model.schedule.agents:
        lista.append({"id": ghost.unique_id, "x": int(ghost.pos[0]), "z": int(ghost.pos[1])})
-    return jsonify(lista)
+    return jsonify({"cars": lista})
 
 app.run()
