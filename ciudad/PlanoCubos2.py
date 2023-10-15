@@ -27,7 +27,8 @@ print(r)
 #LOCATION = r.headers["location"]
 
 
-cars = r.json()
+elementos = r.json()
+cars = elementos['cars']
 LOCATION = cars["location"]
 
 screen_width = 500

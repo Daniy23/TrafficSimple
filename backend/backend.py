@@ -22,7 +22,7 @@ def create():
     #response.status_code = 201
     #response.data = jsonify(lista)
     #return response
-    return jsonify(cars), 201, {'location': f"/games/{id}"}
+    return jsonify({"cars": cars, 'location': f"/games/{id}"}), 201, {'location': f"/games/{id}"}
 
 @app.route("/games/<id>", methods=["GET"])
 def queryState(id):
