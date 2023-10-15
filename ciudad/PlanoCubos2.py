@@ -262,7 +262,7 @@ def display():
 
     response = requests.get(URL_BASE + LOCATION)
     elementos = response.json()
-    cars = elementos
+    cars = elementos["cars"]
 
     for agent in cars:
         carros[agent["id"]].update(agent["x"] * 20 - 160, agent["z"] *20 - 160)
