@@ -265,7 +265,7 @@ def display():
     cars = elementos["cars"]
 
     for agent in cars:
-        carros[agent["id"]].update(agent["x"] * 28 - 340, agent["z"] *28 - 340)
+        carros[agent["id"]].update(agent["x"] * 28 - 350, agent["z"] *28 - 330)
         carros[agent["id"]].rotate(agent["degrees"])
     #ship1.generate()
     #casa1.generate()
