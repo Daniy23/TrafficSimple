@@ -142,18 +142,16 @@ class Ship:
         glScaled(4,4,4)
         glRotate(90,0,0,1)
         glRotate(90,0,1,0)
-        glRotate(50,0,0,1)
+        glRotate(self.angulo - 180,0,0,1)
         #self.rotar()
         self.obj.render()
         glPopMatrix()
 
     def rotate(self, anguloNave):
-        self.angulo = self.angulo + anguloNave
-        glPushMatrix()
-        glRotatef(self.angulo,0,1,0)
-        glTranslatef(14.5,0.0,0.0)
-        self.generate()
-        glPopMatrix()
+        self.angulo = anguloNave
+        #glPushMatrix()
+        #glRotatef(anguloNave - 45,0,1,0)
+        #glPopMatrix()
 
     def update(self, new_x, new_z):
         self.Position[0] = new_x

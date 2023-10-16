@@ -266,6 +266,7 @@ def display():
 
     for agent in cars:
         carros[agent["id"]].update(agent["x"] * 28 - 340, agent["z"] *28 - 340)
+        carros[agent["id"]].rotate(agent["degrees"])
     #ship1.generate()
     #casa1.generate()
     cmddown = False

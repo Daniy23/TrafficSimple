@@ -17,7 +17,7 @@ class Car(Agent):
         super().__init__(model.next_id(), model)
         self.pos = pos
         self.speed = speed
-        self.diagonalPos = [0,0]
+        self.diagonalPos = 90
         self.vel = 1
     
 
@@ -47,13 +47,16 @@ class Car(Agent):
         
         #RUTA B 
         randomB = random.choice([direccionAbajo, direccionDerecha])
-        if (x == 6) and (y == 10):
-            self.diagonalPos = 270 # 270 Grados hasta 6, 14
+        if (x == 5) and (y == 10):
+            self.diagonalPos = 180 # 270 Grados hasta 6, 14
             # self.diagonalPos = np.array(self.diagonalvector(270))
-        if (x == 6) and (y == 14):
+        elif (x == 7) and (y == 10):
+            self.diagonalPos = 270
+        elif (x == 6) and (y == 14):
             self.diagonalPos = 315 # 315 Grados hasta 10, 18
             # self.diagonalPos = np.array(self.diagonalvector(315))
-        if (x == 7) and (y == 14):
+        elif (x == 7) and (y == 14):
+            self.diagonalPos = 315
             self.speed = np.array(direccionAbajo)
         elif (x == 7) and (y == 16):
             self.speed = np.array(direccionDerecha)
@@ -69,7 +72,10 @@ class Car(Agent):
             # self.diagonalPos = np.array(self.diagonalvector(45))
         elif (x == 10) and (y == 18):
             self.speed = np.array(randomB)
-            self.diagonalPos = 0 #0 Grados hasta 14, 18
+        elif (x == 11) and (y == 18):
+            self.diagonalPos = 180
+        elif (x == 10) and (y == 19):
+            self.diagonalPos = 270 #0 Grados hasta 14, 18
             # self.diagonalPos = np.array(self.diagonalvector(0))  
         #RUTA D
         randomD = random.choice([direccionArriba, direccionIzquierda])
@@ -87,7 +93,9 @@ class Car(Agent):
             self.speed = np.array(direccionArriba)
         elif (x == 14) and (y == 6):
             self.speed = np.array(randomD)
-            self.diagonalPos = 180 #180 Grados hasta 10, 6
+            self.diagonalPos = 180
+        elif (x == 14) and (y == 5):
+            self.diagonalPos = 90 #180 Grados hasta 10, 6
             # print("GRADOS",self.diagonalPos)
             # self.diagonalPos = np.array(self.diagonalvector(180))
             # print("VECTOR",self.diagonalPos)
@@ -125,7 +133,10 @@ class Car(Agent):
             # self.diagonalPos = np.array(self.diagonalvector(135))
         elif (x == 18) and (y == 14):
             self.speed = np.array(randomC)
-            self.diagonalPos = 90 #90 grados hasta 18,10 
+        elif (x == 18) and (y == 13):
+            self.diagonalPos = 90
+        elif (x == 19) and (y == 14):
+            self.diagonalPos = 0 #90 grados hasta 18,10 
             # self.diagonalPos = np.array(self.diagonalvector(90))
             
     #--------------------------------------------------------------------------

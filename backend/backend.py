@@ -15,7 +15,7 @@ def create():
     games[id] = Street()
     cars = []
     for ghost in games[id].schedule.agents:
-        cars.append({"id": ghost.unique_id, "x": int(ghost.pos[0]), "z": int(ghost.pos[1])})
+        cars.append({"id": ghost.unique_id, "x": int(ghost.pos[0]), "z": int(ghost.pos[1]), "degrees": int(ghost.diagonalPos)})
 
     #response = flask.make_response()
     #response.headers['Location'] = f"/games/{id}"
@@ -31,7 +31,7 @@ def queryState(id):
     model.step()
     lista = []
     for ghost in model.schedule.agents:
-       lista.append({"id": ghost.unique_id, "x": int(ghost.pos[0]), "z": int(ghost.pos[1])})
+       lista.append({"id": ghost.unique_id, "x": int(ghost.pos[0]), "z": int(ghost.pos[1]), "degrees": int(ghost.diagonalPos)})
     return jsonify({"cars": lista})
 
 app.run()
