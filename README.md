@@ -6,7 +6,7 @@ El proyecto se muestra en un ejecutable en OpenGL que nos permite visualizar una
 
 Es necesario clonar el proyecto desde la liga del repositorio: https://github.com/Daniy23/TrafficSimple.git, para eso desde la terminal del entorno de desarrollo (ejemplo: VisualStudio code) ejecutar el comando para clonarlo.
 
-git clone https://github.com/Daniy23/TrafficSimple.git              
+!()[https://github.com/Daniy23/TrafficSimple/blob/master/fotos/1.png]            
 
 Posteriormente, necesitaremos dos terminales para la ejecución.
 
