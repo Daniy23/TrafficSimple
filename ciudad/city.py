@@ -196,7 +196,7 @@ class Lamps:
 def luz():
         #glLightfv(GL_LIGHT1, GL_POSITION, (0, 100, 0, 1))
         #glLightfv(GL_LIGHT1, GL_POSITION, (self.Position[0], self.Position[1], self.Position[2], 1))
-        glLightfv(GL_LIGHT1, GL_POSITION, (0, -155, -155, 1))
+        glLightfv(GL_LIGHT1, GL_POSITION, (0, 1000, 0, 1))
         
         glLightfv(GL_LIGHT2, GL_POSITION, (0, 100, 0, 1)) #Luz derecha
         
@@ -227,7 +227,7 @@ def luz():
 
 
         
-        glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, (0, 1, 0))
+        glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, (0, -1, 0))
         
         glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, (0, -1, 0)) #Funciona perfectamente
         
@@ -246,13 +246,13 @@ def luz():
         
         
         #Luz ambiente, aumentar si esta muy oscuro
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, [0.3, 0.3, 0.3, 1])  #valores RGB para blanco, en el rango [0,1]
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, [0.5, 0.5, 0.5, 1])  #valores RGB para blanco, en el rango [0,1]
     
 
         glEnable(GL_LIGHTING)
         
         
-        glEnable(GL_LIGHT1)
+        #glEnable(GL_LIGHT1)
         glEnable(GL_LIGHT2) #FUnciona bien
         #glEnable(GL_LIGHT3)
         #glEnable(GL_LIGHT4)
